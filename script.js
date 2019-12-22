@@ -155,7 +155,7 @@
         else{
             
             resetForReselect()
-            alert(sum+ ' saplings, please selected more saplings so that Total amount becomes 10' );
+            alert('saplings, please selected more saplings so that Total amount becomes 10' );
         }
                                                         
     });
@@ -170,7 +170,7 @@ function resetForReselect(){
 }
     document.querySelector('.submit').addEventListener('click',function () {
         resetForReselect()
-        alert(sum+ '  You just submitted sucessfully !!!');
+        alert('You just submitted sucessfully !!!');
         //Reset values After Submition
         
     });
