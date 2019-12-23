@@ -87,3 +87,6 @@ html, body {
     border:  1px solid #179621;
     cursor: pointer;
 }
+.hideModal{
+    display: none;
+}

@@ -21,7 +21,7 @@
         document.querySelector('.address').innerHTML = getData.data[0].name + ', ' + getData.data[0].address;
         document.querySelector('.contact').innerHTML = 'Contact No : ' + getData.data[0].contactNumber;
         for(let l=0;l<getData.data.length; l++){
-            for(let i=0; i< getData.data[l].saplings.length; i++){ 
+            for(let i=0; i<getData.data[l].saplings.length; i++){ 
                 if(l==0){
                     totalSaplings=i;
                  }
@@ -39,7 +39,7 @@
                 var disableCreated=document.createAttribute('disabled');
                 var btnAdd = document.querySelector('.increase-'+totalSaplings)
                 var btnSub = document.querySelector('.decrease-'+totalSaplings);
-                arrNum[totalSaplings]=0;
+                arrNum.push(0);
                 saplingSelect = document.querySelector('.saplingSelect-' + totalSaplings);
                 saplingName = document.querySelector('.saplingName-' + totalSaplings);
                 saplingsLeft[totalSaplings] = 1200;
@@ -57,7 +57,7 @@
                 
             }
         }
-        for(let e=0;e<=totalSaplings;e++){
+        for(let e=0;e<arrNum.length;e++){
             (function(){
                 saplingLeft = document.querySelector('.saplingLeft-' + e);
                 saplingLeft.innerHTML =  saplingsLeft[e] + '<span> Left</span>';
@@ -84,26 +84,32 @@
     }
     document.querySelector('.reserve').addEventListener('click',function () {
         sum=0;
-        var table=document.createElement('table');
-        var trr = document.createElement('tr');
-        var tda= document.createElement('td');
-        var tdb= document.createElement('td');
-        var tdc= document.createElement('td');
-        var tdd= document.createElement('td');
-        tda.innerHTML = 'Sampling Name';
-        tdb.innerHTML = 'Sampling Type';
-        tdc.innerHTML = 'Sampling Quantity';
-        tdd.innerHTML = 'Total Amount';
-        trr.appendChild(tda);
-        trr.appendChild(tdb);
-        trr.appendChild(tdc);
-        trr.appendChild(tdd);
-        table.appendChild(trr);
-        trr.style.fontWeight =700;
-        trr.style.borderBottom =2+ 'px ' + 'solid '+ ' #555'; 
-        for(let j=0; j<totalSaplings; j++ ){
+        for(let j=0; j<=totalSaplings; j++ ){
             if(arrNum[j]>0){
                 sum=sum+ arrNum[j]*arrPrice[j];
+            }
+        }
+        if(sum>=10){
+            document.querySelector('.modal').setAttribute("id", "myModal");
+            var table=document.createElement('table');
+            var trr = document.createElement('tr');
+            var tda= document.createElement('td');
+            var tdb= document.createElement('td');
+            var tdc= document.createElement('td');
+            var tdd= document.createElement('td');
+            tda.innerHTML = 'Sampling Name';
+            tdb.innerHTML = 'Sampling Type';
+            tdc.innerHTML = 'Sampling Quantity';
+            tdd.innerHTML = 'Total Amount';
+            trr.appendChild(tda);
+            trr.appendChild(tdb);
+            trr.appendChild(tdc);
+            trr.appendChild(tdd);
+            table.appendChild(trr);
+            trr.style.fontWeight =700;
+            trr.style.borderBottom =2+ 'px ' + 'solid '+ ' #555'; 
+        for(let j=0; j<=totalSaplings; j++ ){
+            if(arrNum[j]>0){
                 var tr= document.createElement('tr');
                 var td1= document.createElement('td');
                 var td2= document.createElement('td');
@@ -123,13 +129,12 @@
             }
         table.appendChild(tr);
         document.querySelector('.modal-body').appendChild(table);
-        if(sum>10){
-            document.querySelector('.submit').disabled=false;
+        document.querySelector('.submit').disabled=false;
         }
         else{
-            resetForReselect();
             document.querySelector('.submit').disabled=true;
-            alert('saplings, please selecte more saplings so that Total amount becomes 10' );
+            document.querySelector('.modal').removeAttribute("id");
+            alert('please select more saplings so that Total amount becomes 10')
         }
                                                         
     });
@@ -145,7 +150,7 @@
 
     // Resets all selected sapling and child element to Zero
     function resetForReselect(){
-        for(let j=0; j<totalSaplings; j++ ){
+        for(let j=0; j<=totalSaplings; j++ ){
             arrNum[j]=0;
             saplingsLeft[j]=1200;
             saplingLeft = document.querySelector('.saplingLeft-' + j);
