@@ -82,32 +82,6 @@
             })(e);
         }
     }
-    function increaseBtn(index){
-        arrNum[index]+=1;
-        saplingsLeft[index] -=1; 
-        if(arrNum[index]>0){
-            saplingLeft = document.querySelector('.saplingLeft-' + index);
-            saplingLeft.innerHTML =  saplingsLeft[index] + '<span> Left</span>';
-            select('selected',index).innerHTML = arrNum[index];
-            select('decrease',index).disabled = false;
-        }
-    }
-    function decreaseBtn(index){
-        if(arrNum[index]>0){
-            arrNum[index]-=1;
-            saplingsLeft[index]+=1;
-            saplingLeft = document.querySelector('.saplingLeft-' + index);
-            saplingLeft.innerHTML =  saplingsLeft[index] + '<span> Left</span>';
-            select('selected',index).innerHTML = arrNum[index];
-        }
-        if(arrNum[index]==0) {
-          select('decrease',index).disabled =true;
-        }
-    }
-    function select(className,num){
-        return document.querySelector('.'+className+'-'+num);
-    }
-
     document.querySelector('.reserve').addEventListener('click',function () {
         sum=0;
         var table=document.createElement('table');
@@ -159,18 +133,54 @@
         }
                                                         
     });
-function resetForReselect(){
-    for(let j=0; j<totalSaplings; j++ ){
-        arrNum[j]=0;
-        saplingsLeft[j]=1200;
-        saplingLeft = document.querySelector('.saplingLeft-' + j);
-        saplingLeft.innerHTML =  saplingsLeft[j] + '<span> Left</span>';
-        select('selected',j).innerHTML= arrNum[j];
-    }
-}
     document.querySelector('.submit').addEventListener('click',function () {
+        //Reset values After Submition
         resetForReselect();
         alert('You just submitted sucessfully !!!');
-        //Reset values After Submition
+        
         
     });
+
+    // Used Functions 
+
+    // Resets all selected sapling and child element to Zero
+    function resetForReselect(){
+        for(let j=0; j<totalSaplings; j++ ){
+            arrNum[j]=0;
+            saplingsLeft[j]=1200;
+            saplingLeft = document.querySelector('.saplingLeft-' + j);
+            saplingLeft.innerHTML =  saplingsLeft[j] + '<span> Left</span>';
+            select('selected',j).innerHTML= arrNum[j];
+        }
+        clearModal();
+    }
+    function clearModal(){
+        var modalBody=document.querySelector('.modal-body');
+        var removeChildOfmodalBody = modalBody.lastElementChild;
+        modalBody.removeChild(removeChildOfmodalBody);
+    }
+    function select(className,num){
+        return document.querySelector('.'+className+'-'+num);
+    }
+    function increaseBtn(index){
+        arrNum[index]+=1;
+        saplingsLeft[index] -=1; 
+        if(arrNum[index]>0){
+            saplingLeft = document.querySelector('.saplingLeft-' + index);
+            saplingLeft.innerHTML =  saplingsLeft[index] + '<span> Left</span>';
+            select('selected',index).innerHTML = arrNum[index];
+            select('decrease',index).disabled = false;
+        }
+    }
+    function decreaseBtn(index){
+        if(arrNum[index]>0){
+            arrNum[index]-=1;
+            saplingsLeft[index]+=1;
+            saplingLeft = document.querySelector('.saplingLeft-' + index);
+            saplingLeft.innerHTML =  saplingsLeft[index] + '<span> Left</span>';
+            select('selected',index).innerHTML = arrNum[index];
+        }
+        if(arrNum[index]==0) {
+          select('decrease',index).disabled =true;
+        }
+    }

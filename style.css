@@ -1,3 +1,8 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
 .Nursery{
 	width:45vw;
 	position: absolute;
@@ -15,6 +20,10 @@
 	top: 0;
 	left: 0;
     background-color: #f2f;
+}
+#map {
+        height: 100%;
+        width: 53vw;
 }
 .note{
     font-size: 14px;
